@@ -1,0 +1,37 @@
+name: novo-projeto-web
+description: Cria a estrutura básica para um novo projeto web com spring boot
+types:
+  - app-template
+inputs:
+  - label: Versão spring boot
+    type: text
+    name: versao_spring_boot
+    default: 2.6.7    
+  - label: Nome do projeto
+    type: text
+    name: nome_projeto    
+  - label: Group id
+    type: text
+    name: group_id    
+  - label: Artifact id
+    type: text
+    name: artifact_id    
+  - label: Versão
+    type: text
+    name: version
+    default: 0.0.1-SNAPSHOT
+  - label: Nome do projeto
+    type: text
+    name: nome_projeto    
+  - label: Descricao
+    type: text
+    name: descricao_projeto        
+  - label: Pacote base
+    type: text
+    name: pacote_base
+  - label: Estrutura de pasta para representar o pacote base. Ex - br/com/empresa/produto
+    type: text
+    name: estrutura_pasta    
+
+
+          
