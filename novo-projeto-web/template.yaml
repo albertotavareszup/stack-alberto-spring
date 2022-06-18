@@ -26,12 +26,10 @@ inputs:
   - label: Descricao
     type: text
     name: descricao_projeto        
-  - label: Pacote base
-    type: text
-    name: pacote_base
-  - label: Estrutura de pasta para representar o pacote base. Ex - br/com/empresa/produto
-    type: text
-    name: estrutura_pasta    
+
+computedInputs: 
+  "pacote_base": "{{inputs.group_id}}.{{inputs.artifact_id}}"        
+  "pasta": "{{computed_inputs.pacote_base | replace('.','/')}}"                
 
 
           
