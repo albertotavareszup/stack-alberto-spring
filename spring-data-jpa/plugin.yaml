@@ -1,0 +1,44 @@
+name: spring-data-jpa
+description: Plugin que gera a configuração necessária para aplicar o spring data jpa
+display-name: spring-data-jpa
+picture: plugin.png
+category: backend # Ref: https://docs.stackspot.com/latest/docs/creators-guide/yaml/#category
+compatibility:
+  - java
+  - spring
+about: docs/about.md
+usage: docs/usage.md
+use-case: docs/use-case.md
+implementation: docs/implementation.md
+technologies: # Ref: https://docs.stackspot.com/latest/docs/creators-guide/yaml/#technologies
+  - "Api"
+types:
+  - app
+inputs:
+  - label: String para definir login de acesso. Pode usar os placeholders suportados pela configuração
+    type: text
+    name: login        
+  - label: String para definir a senha de aceso
+    type: text
+    name: senha    
+  - label: String jdbc de conexão com o banco de dados
+    type: text
+    name: text
+  - label: Escolha o tipo de banco de dados para adicionarmos a dependência
+    type: text
+    name: text    
+    items:
+      - MySQL
+      - PostgreSQL
+
+hooks:
+  - type: edit
+    trigger: after-render
+    path: pom.xml          
+    changes:
+      - search:
+          string: </dependencies>
+          insert-before:
+            snippet: snippets/mysql.xml
+          when:
+            not-exists-snippet: snippets/mysql.xml
