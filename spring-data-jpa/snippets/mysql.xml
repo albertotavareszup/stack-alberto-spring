@@ -1,7 +1,7 @@
 <!--Gerado pela stackspot-->
+<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 <dependency>
-    <groupId>org.postgresql</groupId>
-    <artifactId>postgresql</artifactId>
-    <version>42.3.3</version>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>    
 </dependency>
-<!--Gerado pela stackspot-->
+

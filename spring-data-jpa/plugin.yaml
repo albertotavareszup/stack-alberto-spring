@@ -23,18 +23,26 @@ inputs:
     name: senha    
   - label: String jdbc de conexão com o banco de dados
     type: text
-    name: text
+    name: string_jdbc
   - label: Escolha o tipo de banco de dados para adicionarmos a dependência
     type: text
-    name: text    
+    name: driver    
     items:
       - MySQL
       - PostgreSQL
+  - label: Digite o nome do arquivo de configuração para que possa ser sugerido a configuração do banco. Ex - application.yml
+    type: text
+    name: arquivo_configuracao    
+    default: "application.yml"
 
 hooks:
   - type: edit
     trigger: after-render
     path: pom.xml          
+    condition:
+      variable: driver
+      operator: ==
+      value: MySQL                
     changes:
       - search:
           string: </dependencies>
@@ -42,3 +50,41 @@ hooks:
             snippet: snippets/mysql.xml
           when:
             not-exists-snippet: snippets/mysql.xml
+
+  - type: edit
+    trigger: after-render
+    path: pom.xml          
+    condition:
+      variable: driver
+      operator: ==
+      value: PostgreSQL                
+    changes:
+      - search:
+          string: </dependencies>
+          insert-before:
+            snippet: snippets/pg.xml
+          when:
+            not-exists-snippet: snippets/pg.xml            
+
+  - type: edit
+    trigger: after-render
+    path: "src/main/resources/{{inputs.arquivo_configuracao}}"
+    condition:
+      variable: arquivo_configuracao
+      operator: containsAny
+      value: yml                            
+    changes:
+      - insert:
+          line: -1
+          snippet: snippets/conf-db.yml
+  - type: edit
+    trigger: after-render
+    path: "src/main/resources/{{inputs.arquivo_configuracao}}"
+    condition:
+      variable: arquivo_configuracao
+      operator: containsAny
+      value: yaml                            
+    changes:
+      - insert:
+          line: -1
+          snippet: snippets/conf-db.yml
