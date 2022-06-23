@@ -34,6 +34,13 @@ inputs:
     type: text
     name: arquivo_configuracao    
     default: "application.yml"
+  - label: Desabilita transação por default para repositórios
+    type: bool
+    name: desabilita_transacao
+    default: false    
+  - label: Nome completo da classe que inicia a aplicação. Ex - br.com.org.projeto.Application
+    type: text
+    name: classe_application    
 
 hooks:
   - type: edit
@@ -88,3 +95,16 @@ hooks:
       - insert:
           line: -1
           snippet: snippets/conf-db.yml
+  - type: edit
+    trigger: after-render
+    path: "src/main/java/{{inputs.classe_application | replace('.','/')}}.java"
+    condition:
+      variable: desabilita_transacao
+      operator: ==
+      value: true                               
+    changes:
+      - search:
+          string: "@SpringBootApplication"
+          insert-before:
+            value: "@EnableJpaRepositories(enableDefaultTransactions = false)\n"
+
