@@ -1,0 +1,9 @@
+type: app
+description: "Cria um projeto j\xE1 configurado para acessar o banco e tamb\xE9m um\
+  \ servidor de autententicacao"
+template: stack-alberto-spring/novo-projeto-web
+plugins:
+  - plugin: stack-alberto-spring/spring-data-jpa
+  - plugin: stack-alberto-spring/spring-security-oauth2
+    inputs:
+      pacote_seguranca: "{{global_computed_inputs.pacote_base}}.seguranca"

@@ -29,7 +29,10 @@ inputs:
 
 computedInputs: 
   "pacote_base": "{{inputs.group_id}}.{{inputs.artifact_id}}"        
-  "pasta": "{{computed_inputs.pacote_base | replace('.','/')}}"                
+  "pasta": "{{computed_inputs.pacote_base | replace('.','/')}}"             
+
+global-computed-inputs:
+  "pacote_base": "{{inputs.group_id}}.{{inputs.artifact_id}}"
 
 
           
