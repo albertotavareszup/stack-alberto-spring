@@ -1,0 +1,53 @@
+name: spring-security-oauth2
+description: Realiza a configuração básica do Spring Security Oauth2 no projeto
+display-name: spring-security-oauth2
+picture: plugin.png
+category: backend # Ref: https://docs.stackspot.com/latest/docs/creators-guide/yaml/#category
+compatibility:
+  - java
+  - spring
+about: docs/about.md
+usage: docs/usage.md
+use-case: docs/use-case.md
+implementation: docs/implementation.md
+technologies: # Ref: https://docs.stackspot.com/latest/docs/creators-guide/yaml/#technologies
+  - "Spring"
+  - "Security"
+  - "Oauth"
+types:
+  - app
+inputs:
+  - label: Pacote para classes de segurança. Ex - br.com.org.projeto.security
+    type: text
+    name: pacote_seguranca    
+  - label: Nome da classe para ter o código de configuração
+    type: text
+    name: classe_configuracao
+    default: "SecurityConfig"    
+  - label: Endereço de configuração da JWK
+    type: text
+    name: endereco_jwk
+  - label: Digite o nome do arquivo de configuração para que possa ser sugerido a configuração de seguranca. Ex - application.yml
+    type: text
+    name: arquivo_configuracao    
+    default: "application.yml" 
+
+computedInputs:   
+  "pasta": "src/main/java/{{inputs.pacote_seguranca | replace('.','/')}}"                       
+
+hooks:
+  - type: edit
+    trigger: after-render
+    path: "src/main/resources/{{inputs.arquivo_configuracao}}"
+    condition:
+      variable: arquivo_configuracao
+      operator: containsAny
+      value: yml                                
+    condition:
+      variable: arquivo_configuracao
+      operator: containsAny
+      value: yaml                 
+    changes:
+      - insert:
+          line: -1
+          snippet: snippets/conf.yml
