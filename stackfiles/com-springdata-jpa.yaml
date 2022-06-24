@@ -1,0 +1,5 @@
+type: app
+description: Cria uma aplicacao spring com spring data jpa
+template: stack-alberto-spring/novo-projeto-web
+plugins:
+- plugin: stack-alberto-spring/spring-data-jpa
